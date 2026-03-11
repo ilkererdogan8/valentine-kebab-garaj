@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'product_list' %}" class="back-link">← Back to Products</a>
+
+    <div class="detail-layout">
+        <div class="detail-image-section">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="detail-image">
+            {% else %}
+            <div class="detail-image-placeholder">
+                <span>📦</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="detail-info-section">
+            <h1 class="detail-title">{{ product.name }}</h1>
+            <div class="detail-price">${{ product.price }}</div>
+            <div class="detail-meta">
+                Added on {{ product.created_at|date:"M d, Y" }}
+            </div>
+            {% if product.description %}
+            <div class="detail-description">
+                <h3>Description</h3>
+                <p>{{ product.description|linebreaksbr }}</p>
+            </div>
+            {% endif %}
+            <div class="detail-actions">
+                <a href="{% url 'product_update' product.pk %}" class="btn btn-secondary">✏ Edit</a>
+                <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">🗑 Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

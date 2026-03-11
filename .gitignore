@@ -1,0 +1,10 @@
+*.pyc
+*__pycache__*
+.env
+db.sqlite3
+media/
+staticfiles/
+.vscode/
+deploy.zip
+deploy_final.zip
+*.log

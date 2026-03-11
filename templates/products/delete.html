@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'product_detail' product.pk %}" class="back-link">← Back to Product</a>
+
+    <div class="form-container delete-container">
+        <div class="delete-icon">⚠️</div>
+        <h1 class="form-title">Delete Product</h1>
+        <p class="delete-message">
+            Are you sure you want to delete <strong>{{ product.name }}</strong>?
+            This action cannot be undone.
+        </p>
+
+        <form method="post" id="delete-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger" id="confirm-delete-btn">Yes, Delete</button>
+                <a href="{% url 'product_detail' product.pk %}" class="btn btn-ghost">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

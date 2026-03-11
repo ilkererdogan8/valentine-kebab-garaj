@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Products</h1>
+            <p class="page-subtitle">Manage your product catalog</p>
+        </div>
+        <a href="{% url 'product_create' %}" class="btn btn-primary">+ Add Product</a>
+    </div>
+
+    {% if products %}
+    <div class="product-grid">
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.pk %}" class="product-card" id="product-{{ product.pk }}">
+            <div class="product-image-wrapper">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                <div class="product-image-placeholder">
+                    <span>📦</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">{{ product.name }}</h2>
+                <p class="product-desc">{{ product.description|truncatewords:15 }}</p>
+                <div class="product-price">${{ product.price }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">📦</div>
+        <h2>No products yet</h2>
+        <p>Get started by adding your first product.</p>
+        <a href="{% url 'product_create' %}" class="btn btn-primary">+ Add Product</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

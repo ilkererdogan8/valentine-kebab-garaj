@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Product Manager{% endblock %} | Kebab Garaj</title>
+    <meta name="description" content="Tuning Parts Store">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="{% url 'product_list' %}" class="nav-brand">
+                <span class="brand-icon">🔧</span>
+                Kebab Garaj
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'product_list' %}" class="nav-link">Products</a>
+                <a href="{% url 'product_create' %}" class="nav-link btn-primary-sm">+ Add Product</a>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" id="alert-{{ forloop.counter }}">
+            {{ message }}
+            <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Azure Store &mdash; Django on Azure App Service &bull; Database: Azure PostgreSQL &bull; Storage: Azure Blob</p>
+        </div>
+    </footer>
+</body>
+</html>
